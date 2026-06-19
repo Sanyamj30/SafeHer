@@ -10,7 +10,7 @@ from utils.ui_components import render_kpi, inject_custom_css
 def show_time_travel_page():
     inject_custom_css()
     
-    st.markdown("## ⏳ Historical Time Travel Safety Analysis")
+    st.markdown("## Historical Time Travel Safety Analysis")
     st.markdown("Use the slider below to navigate through history (2001 - 2021) and observe the evolution of safety scores, crime volumes, and state-level safety maps.")
     
     import sqlite3
@@ -110,7 +110,7 @@ def show_time_travel_page():
             st.plotly_chart(fig_map, use_container_width=True, config={"displayModeBar": False})
         
     with col_timeline:
-        st.markdown("#### ⏳ Historical Safety Timeline (2001 - 2021)")
+        st.markdown("#### Historical Safety Timeline (2001 - 2021)")
         
         fig_timeline = go.Figure()
         # Add trace of safety trend
