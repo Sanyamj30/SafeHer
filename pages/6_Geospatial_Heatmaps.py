@@ -9,7 +9,7 @@ from utils.ui_components import inject_custom_css
 def show_heatmaps_page():
     inject_custom_css()
     
-    st.markdown("## 🗺️ Geo-Spatial Safety Heatmaps")
+    st.markdown("## Geo-Spatial Safety Heatmaps")
     st.markdown("Visualize spatial risk profiles across India. Switch between layers to examine crime density, local safety index drops, or specific regional risk levels.")
     
     # Load data using SQL directly on safeher.db
@@ -33,9 +33,9 @@ def show_heatmaps_page():
     map_type = st.radio(
         "Select Visual Layer",
         [
-            "🔥 Crime Density Heatmap (Weighted by Incident Counts)",
-            "❄️ Safety Index Hotspots (Weighted by Unsafety Score)",
-            "📍 Regional Risk Concentration Clusters (Pins & Marker Clusters)"
+            " Crime Density Heatmap (Weighted by Incident Counts)",
+            " Safety Index Hotspots (Weighted by Unsafety Score)",
+            " Regional Risk Concentration Clusters (Pins & Marker Clusters)"
         ],
         horizontal=True
     )
@@ -47,7 +47,7 @@ def show_heatmaps_page():
         m = folium.Map(location=[22.0, 78.0], zoom_start=5, control_scale=True)
         
         if "Crime Density" in map_type:
-            st.markdown("#### 🔥 Crime Density Heatmap")
+            st.markdown("#### Crime Density Heatmap")
             st.markdown("This map shows the concentration of total crimes recorded against women. High-intensity red areas indicate a large volume of incidents.")
             
             # Prepare data: [lat, lon, weight]
@@ -62,7 +62,7 @@ def show_heatmaps_page():
             ).add_to(m)
             
         elif "Safety Index" in map_type:
-            st.markdown("#### ❄️ Safety Index Hotspots (Unsafety Heatmap)")
+            st.markdown("#### Safety Index Hotspots (Unsafety Heatmap)")
             st.markdown("This heatmap highlights regions where the Safety Score drops (higher heat indicates *lower* safety). Weight is calculated as `100 - Safety_Score`.")
             
             # We want lower safety scores to appear as HIGHER density
@@ -80,7 +80,7 @@ def show_heatmaps_page():
             ).add_to(m)
             
         else:
-            st.markdown("#### 📍 Regional Risk Concentration Clusters")
+            st.markdown("#### Regional Risk Concentration Clusters")
             st.markdown("Pins represent individual districts, clustered by region. Blue bubbles show aggregated district counts; click to expand. Individual pins are colored by risk category.")
             
             marker_cluster = MarkerCluster(

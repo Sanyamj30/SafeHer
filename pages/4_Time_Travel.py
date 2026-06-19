@@ -73,7 +73,7 @@ def show_time_travel_page():
     map_df["State"] = map_df["State"].str.title().str.strip()
     
     with col_map:
-        st.markdown(f"#### 🗺️ State Safety Choropleth in {selected_year}")
+        st.markdown(f"#### State Safety Choropleth in {selected_year}")
         
         with st.spinner("Rendering Geospatial Choropleth Map..."):
             geojson = load_geojson_data()
@@ -151,7 +151,7 @@ def show_time_travel_page():
     col_dist, col_analysis = st.columns([1, 1])
     
     with col_dist:
-        st.markdown(f"#### 📊 State Score Dispersion ({selected_year})")
+        st.markdown(f"#### State Score Dispersion ({selected_year})")
         # Draw box plot to show state safety score distribution
         fig_box = px.box(
             state_summary,
@@ -168,7 +168,7 @@ def show_time_travel_page():
         st.plotly_chart(fig_box, use_container_width=True, config={"displayModeBar": False})
         
     with col_analysis:
-        st.markdown("#### 📝 Safety Evolution Commentary")
+        st.markdown("#### Safety Evolution Commentary")
         
         # Compare with baseline (2001)
         base_national = national_summary[national_summary["Year"] == 2001].iloc[0]
@@ -179,10 +179,10 @@ def show_time_travel_page():
         low_risk_states_count = len(state_summary[state_summary["Risk_Category"] == "Low Risk"])
         
         analysis_text = f"""
-        *   **Historical Shift:** In **{selected_year}**, the National Safety Index stands at **{selected_national['Safety_Score']:.1f}/100**, compared to the baseline year **2001** index of **{base_national['Safety_Score']:.1f}/100**. This is a net change of **{diff_base:+.2f}** index points over the years.
-        *   **Reporting Volume & Capacity:** Over this decadal period, the increase in raw incident counts often correlates with improvements in literacy, gender awareness, police filing protocols (e.g. mandatory registration of FIRs), and the introduction of specialized women's help desks across districts.
-        *   **Administrative Risk Profile:** Across India in {selected_year}, **{high_risk_states_count}** states fall under the **High Risk** warning category, while **{low_risk_states_count}** states have achieved **Low Risk (Safe)** status.
-        *   **Policy Implications:** Criminological research suggests that long-term safety improvements depend heavily on institutional reforms, chargesheeting swiftness, and structural deterrents rather than policing volume alone.
+        * **Historical Shift:** In **{selected_year}**, the National Safety Index stands at **{selected_national['Safety_Score']:.1f}/100**, compared to the baseline year **2001** index of **{base_national['Safety_Score']:.1f}/100**. This is a net change of **{diff_base:+.2f}** index points over the years.
+        * **Reporting Volume & Capacity:** Over this decadal period, the increase in raw incident counts often correlates with improvements in literacy, gender awareness, police filing protocols (e.g. mandatory registration of FIRs), and the introduction of specialized women's help desks across districts.
+        * **Administrative Risk Profile:** Across India in {selected_year}, **{high_risk_states_count}** states fall under the **High Risk** warning category, while **{low_risk_states_count}** states have achieved **Low Risk (Safe)** status.
+        * **Policy Implications:** Criminological research suggests that long-term safety improvements depend heavily on institutional reforms, chargesheeting swiftness, and structural deterrents rather than policing volume alone.
         """
         st.info(analysis_text)
 

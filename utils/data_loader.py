@@ -90,7 +90,7 @@ def init_sqlite_db():
         
     if states_count > 0 and cities_count > 0 and coords_count > 0:
         conn.close()
-        return  # already initialized
+        return # already initialized
         
     # Drop tables if they exist to start fresh
     cursor.execute("DROP TABLE IF EXISTS states")

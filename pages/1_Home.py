@@ -49,7 +49,7 @@ def show_home_page():
     st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
     
     # 3. Interactive Map & Section Overview
-    st.markdown(f"### 🗺️ India State-Wise Safety Index ({latest_state_year})")
+    st.markdown(f"### India State-Wise Safety Index ({latest_state_year})")
     st.markdown("This interactive map showcases the safety score across different Indian States calculated directly from `state_master.csv`. *Hover over a state to view metrics.*")
     
     # Lazy load and render map with a loading spinner
@@ -123,13 +123,13 @@ def show_home_page():
     col_left, col_right = st.columns(2)
     
     with col_left:
-        st.markdown("#### 🟢 Top 5 Safest States")
+        st.markdown("#### Top 5 Safest States")
         top_safe = state_summary.sort_values(by="Safety_Score", ascending=False).head(5)[["State", "Safety_Score", "Total_Crimes"]]
         top_safe = top_safe.rename(columns={"Safety_Score": "Safety Score", "Total_Crimes": "Total Incidents"})
         st.dataframe(top_safe, use_container_width=True, hide_index=True)
         
     with col_right:
-        st.markdown("#### 🔴 Top 5 Highest Risk States")
+        st.markdown("#### Top 5 Highest Risk States")
         top_risk = state_summary.sort_values(by="Safety_Score", ascending=True).head(5)[["State", "Safety_Score", "Total_Crimes"]]
         top_risk = top_risk.rename(columns={"Safety_Score": "Safety Score", "Total_Crimes": "Total Incidents"})
         st.dataframe(top_risk, use_container_width=True, hide_index=True)

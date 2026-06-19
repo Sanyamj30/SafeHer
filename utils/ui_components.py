@@ -172,11 +172,11 @@ def get_risk_badge_html(category):
     """Returns the HTML for a styled risk category badge."""
     cat_lower = category.lower()
     if "low" in cat_lower:
-        return f'<span class="badge badge-low">🛡️ {category}</span>'
+        return f'<span class="badge badge-low"> {category}</span>'
     elif "medium" in cat_lower or "moderate" in cat_lower:
-        return f'<span class="badge badge-medium">⚠️ {category}</span>'
+        return f'<span class="badge badge-medium"> {category}</span>'
     else:
-        return f'<span class="badge badge-high">🚨 {category}</span>'
+        return f'<span class="badge badge-high"> {category}</span>'
 
 def render_risk_badge(category):
     """Directly renders a styled risk category badge in Streamlit."""
@@ -185,8 +185,8 @@ def render_risk_badge(category):
 def get_score_color(score):
     """Helper to return safety color based on score."""
     if score >= 80:
-        return "#10B981"  # Green
+        return "#10B981" # Green
     elif score >= 55:
-        return "#F59E0B"  # Yellow
+        return "#F59E0B" # Yellow
     else:
-        return "#EF4444"  # Red
+        return "#EF4444" # Red

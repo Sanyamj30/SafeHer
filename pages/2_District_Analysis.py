@@ -9,7 +9,7 @@ from utils.ui_components import render_kpi, render_risk_badge, inject_custom_css
 def show_district_page():
     inject_custom_css()
     
-    st.markdown("## 📈 Safety Profile & Trend Analysis")
+    st.markdown("## Safety Profile & Trend Analysis")
     st.markdown("Analyze safety scores, historical crime volumes, and risk levels at either the State or City level using the master datasets.")
     
     # 1. Level of Analysis Selector
@@ -45,7 +45,7 @@ def show_district_page():
             render_kpi("Total Incidents", f"{latest_record['Total_Crimes']:,} Cases", f"Crime rate: {latest_record['Crime_Rate']:.1f} per lakh", "#EF4444")
             
         # Composite Score Breakdown
-        st.markdown("#### 📊 Safety Score Component Breakdown")
+        st.markdown("#### Safety Score Component Breakdown")
         breakdown_df = pd.DataFrame({
             "Component": ["Crime Rate (40%)", "Chargesheeting (25%)", "Historical Trend (20%)", "Crime Density (15%)"],
             "Weighted Score": [
@@ -75,7 +75,7 @@ def show_district_page():
         st.plotly_chart(fig_breakdown, use_container_width=True, config={"displayModeBar": False})
             
         # 3. ML Risk Classification Section
-        st.markdown("### 🤖 Machine Learning Predictive Insights")
+        st.markdown("### Machine Learning Predictive Insights")
         if classifier_data:
             # Model selection
             model_choice = st.selectbox("Select ML Model", ["Random Forest Classifier", "Logistic Regression Classifier"])
@@ -139,7 +139,7 @@ def show_district_page():
                 st.plotly_chart(fig_prob, use_container_width=True, config={"displayModeBar": False})
                 
             # Local Contributing Factors Explanation
-            st.markdown("#### 🔍 Top Contributing Factors (Local Prediction Explanation)")
+            st.markdown("#### Top Contributing Factors (Local Prediction Explanation)")
             if model_choice == "Random Forest Classifier":
                 # For RF, use global feature importances as a contribution reference
                 importances = classifier_data["rf_importances"]
@@ -174,12 +174,12 @@ def show_district_page():
             st.plotly_chart(fig_explain, use_container_width=True, config={"displayModeBar": False})
             
             # Model Explanation section
-            with st.expander("📖 Model Explanation & Methodology Details"):
+            with st.expander(" Model Explanation & Methodology Details"):
                 st.markdown("""
-                *   **Population Normalization:** Instead of training on raw incident counts (which artificially labels highly populated states as "High Risk"), the model scales crimes to rates per lakh population (e.g. `Rape_Rate = Rape / Population_Lakhs`).
-                *   **Scaler Payload:** Input features are standardized using the original training dataset mean/std bounds.
-                *   **Random Forest Classifier:** Classifies risk by aggregating decisions from a collection of decision trees.
-                *   **Logistic Regression Classifier:** Determines risk probability using a linear equation, showing feature contributions directly. Positive weights push the model toward predicting that risk class, while negative weights oppose it.
+                * **Population Normalization:** Instead of training on raw incident counts (which artificially labels highly populated states as "High Risk"), the model scales crimes to rates per lakh population (e.g. `Rape_Rate = Rape / Population_Lakhs`).
+                * **Scaler Payload:** Input features are standardized using the original training dataset mean/std bounds.
+                * **Random Forest Classifier:** Classifies risk by aggregating decisions from a collection of decision trees.
+                * **Logistic Regression Classifier:** Determines risk probability using a linear equation, showing feature contributions directly. Positive weights push the model toward predicting that risk class, while negative weights oppose it.
                 """)
         else:
             st.info("ML Classifier model not loaded.")
@@ -189,7 +189,7 @@ def show_district_page():
         # 4. Visualizations: Trend & Crime Breakdown
         col_vis1, col_vis2 = st.columns(2)
         with col_vis1:
-            st.markdown(f"#### 📈 Historical Safety Index (2001 - 2021)")
+            st.markdown(f"#### Historical Safety Index (2001 - 2021)")
             fig_trend = px.line(
                 df_dist, 
                 x="Year", 
@@ -207,7 +207,7 @@ def show_district_page():
             st.plotly_chart(fig_trend, use_container_width=True, config={"displayModeBar": False})
             
         with col_vis2:
-            st.markdown(f"#### 📊 Crime Category Distribution ({latest_record['Year']})")
+            st.markdown(f"#### Crime Category Distribution ({latest_record['Year']})")
             categories = ["Rape", "K&A", "DD", "AoW", "AoM", "DV", "WT"]
             values = [latest_record[c] for c in categories]
             
@@ -231,7 +231,7 @@ def show_district_page():
             
         # 5. Automated Insights Section
         st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
-        st.markdown("### 💡 Automated Criminological Insights")
+        st.markdown("### Automated Criminological Insights")
         
         score_change = score - first_record["Safety_Score"]
         trend_direction = "improved" if score_change > 0 else "declined"
@@ -255,7 +255,7 @@ def show_district_page():
         """
         st.info(insight_text)
         
-    else:  # City Level
+    else: # City Level
         df = load_crime_data()
         
         if df.empty:
@@ -281,7 +281,7 @@ def show_district_page():
             render_kpi("Total Incidents", f"{latest_record['Total_Crimes']:,} Cases", f"Crime rate: {latest_record['Crime_Rate']:.1f} per lakh", "#EF4444")
             
         # Composite Score Breakdown for City
-        st.markdown("#### 📊 Safety Score Component Breakdown")
+        st.markdown("#### Safety Score Component Breakdown")
         breakdown_df = pd.DataFrame({
             "Component": ["Crime Rate (40%)", "Chargesheeting (25%)", "Historical Trend (20%)", "Crime Density (15%)"],
             "Weighted Score": [
@@ -311,13 +311,13 @@ def show_district_page():
         st.plotly_chart(fig_breakdown, use_container_width=True, config={"displayModeBar": False})
             
         # 3. Disabled Features info box
-        st.markdown("### 🤖 Predictive Analytics & Breakdown")
-        st.info("⚠️ **Crime Category Breakdown and ML Predictive Insights are disabled for cities.** This is because `city_stats.csv` only contains total crime counts, and lacks head-wise categories like Rape, Kidnapping, or Domestic Violence. State-level analysis remains fully supported.")
+        st.markdown("### Predictive Analytics & Breakdown")
+        st.info(" **Crime Category Breakdown and ML Predictive Insights are disabled for cities.** This is because `city_stats.csv` only contains total crime counts, and lacks head-wise categories like Rape, Kidnapping, or Domestic Violence. State-level analysis remains fully supported.")
         
         st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
         
         # 4. Trend Viz
-        st.markdown(f"#### 📈 Historical Safety Index (2021 - 2023)")
+        st.markdown(f"#### Historical Safety Index (2021 - 2023)")
         fig_trend = px.line(
             df_dist, 
             x="Year", 
@@ -336,7 +336,7 @@ def show_district_page():
         
         # 5. Automated Insights Section
         st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
-        st.markdown("### 💡 Automated Criminological Insights")
+        st.markdown("### Automated Criminological Insights")
         
         score_change = score - first_record["Safety_Score"]
         trend_direction = "improved" if score_change > 0 else "declined"

@@ -9,7 +9,7 @@ from utils.ui_components import render_kpi, get_risk_badge_html, inject_custom_c
 def show_compare_page():
     inject_custom_css()
     
-    st.markdown("## 🔄 Side-by-Side City Comparison")
+    st.markdown("## Side-by-Side City Comparison")
     st.markdown("Select two different cities to perform a comparative analysis of their safety scores, crime rates, and chargesheeting rates.")
     
     df = load_crime_data()
@@ -25,14 +25,14 @@ def show_compare_page():
     col_sel_a, col_sel_b = st.columns(2)
     
     with col_sel_a:
-        st.markdown("### 🏙️ City A")
+        st.markdown("### City A")
         state_a = st.selectbox("Select State A", states, index=states.index("Maharashtra") if "Maharashtra" in states else 0)
         df_state_a = df[df["State"] == state_a]
         districts_a = sorted(df_state_a["District"].unique())
         district_a = st.selectbox("Select City A", districts_a, index=0)
         
     with col_sel_b:
-        st.markdown("### 🏙️ City B")
+        st.markdown("### City B")
         state_b = st.selectbox("Select State B", states, index=states.index("Delhi") if "Delhi" in states else 1)
         df_state_b = df[df["State"] == state_b]
         districts_b = sorted(df_state_b["District"].unique())
@@ -97,7 +97,7 @@ def show_compare_page():
     st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
     
     # Side-by-side Score Breakdown
-    st.markdown("### 📊 Safety Score Breakdown Comparison")
+    st.markdown("### Safety Score Breakdown Comparison")
     breakdown_comp = pd.DataFrame({
         "City": [district_a, district_a, district_a, district_a, district_b, district_b, district_b, district_b],
         "Component": [
@@ -138,7 +138,7 @@ def show_compare_page():
     st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
     
     # 3. Trend Comparison Chart
-    st.markdown("### 📈 Safety Evolution (2021 - 2023)")
+    st.markdown("### Safety Evolution (2021 - 2023)")
     
     fig_trend_comp = go.Figure()
     fig_trend_comp.add_trace(go.Scatter(
@@ -168,13 +168,13 @@ def show_compare_page():
     st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
     
     # 4. Bar Comparison Charts
-    st.markdown("### 📊 Metrics Comparison ({})".format(latest_year))
-    st.info("⚠️ **Category-level radar charts are disabled.** This is because city_stats.csv does not contain category breakdowns (e.g. Rape, Kidnapping counts). Standardized comparative metrics for totals and police efficiency are shown below.")
+    st.markdown("### Metrics Comparison ({})".format(latest_year))
+    st.info(" **Category-level radar charts are disabled.** This is because city_stats.csv does not contain category breakdowns (e.g. Rape, Kidnapping counts). Standardized comparative metrics for totals and police efficiency are shown below.")
     
     col_chart1, col_chart2 = st.columns(2)
     
     with col_chart1:
-        st.markdown("#### 🚔 Crime Rate Comparison (Cases per Lakh)")
+        st.markdown("#### Crime Rate Comparison (Cases per Lakh)")
         fig_rate = go.Figure(data=[
             go.Bar(name=district_a, x=["Crime Rate (2023)"], y=[rec_a_latest["Crime_Rate"]], marker_color='#8B5CF6'),
             go.Bar(name=district_b, x=["Crime Rate (2023)"], y=[rec_b_latest["Crime_Rate"]], marker_color='#EC4899')
@@ -188,7 +188,7 @@ def show_compare_page():
         st.plotly_chart(fig_rate, use_container_width=True, config={"displayModeBar": False})
         
     with col_chart2:
-        st.markdown("#### ⚖️ Chargesheeting Rate Comparison (%)")
+        st.markdown("#### Chargesheeting Rate Comparison (%)")
         fig_charge = go.Figure(data=[
             go.Bar(name=district_a, x=["Chargesheeting Rate"], y=[rec_a_latest["Chargesheeting_Rate"]], marker_color='#8B5CF6'),
             go.Bar(name=district_b, x=["Chargesheeting Rate"], y=[rec_b_latest["Chargesheeting_Rate"]], marker_color='#EC4899')

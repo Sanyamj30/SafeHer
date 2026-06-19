@@ -5,7 +5,7 @@ import sqlite3
 
 def validate():
     print("=========================================")
-    print("   SAFEHER PLATFORM INTEGRITY CHECK     ")
+    print(" SAFEHER PLATFORM INTEGRITY CHECK ")
     print("=========================================")
     
     # Check data files
@@ -13,7 +13,7 @@ def validate():
         "state_master.csv": "datasets/state_master.csv",
         "city_stats.csv": "datasets/city_stats.csv",
         "coordinates.csv": "datasets/coordinates.csv",
-        "india_district.geojson": "datasets/geojson/india_district.geojson"
+        "india_district_simplified.geojson": "datasets/geojson/india_district_simplified.geojson"
     }
     
     for name, path in files.items():

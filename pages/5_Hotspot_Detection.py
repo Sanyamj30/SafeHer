@@ -9,7 +9,7 @@ from utils.ui_components import render_kpi, inject_custom_css
 def show_hotspot_page():
     inject_custom_css()
     
-    st.markdown("## 🔍 Hotspot Detection using Unsupervised Learning")
+    st.markdown("## Hotspot Detection using Unsupervised Learning")
     st.markdown("This section utilizes a **K-Means Clustering** model to segment cities into 3 distinct crime groups: **High-Risk Hotspots**, **Moderate-Risk Regions**, and **Low-Risk Areas**, based on their crime rates and chargesheeting rates.")
     
     df = load_crime_data()
@@ -40,9 +40,9 @@ def show_hotspot_page():
     mapped_clusters = [cluster_mapping[p] for p in preds]
     
     cluster_labels_map = {
-        "Low Risk": "🟢 Low Risk Area",
-        "Medium Risk": "🟡 Moderate Risk Area",
-        "High Risk": "🔴 High Risk Hotspot"
+        "Low Risk": " Low Risk Area",
+        "Medium Risk": " Moderate Risk Area",
+        "High Risk": " High Risk Hotspot"
     }
     df_latest["Cluster_Label"] = [cluster_labels_map[c] for c in mapped_clusters]
     
@@ -52,16 +52,16 @@ def show_hotspot_page():
     # KPIs for Clusters
     col_kpi1, col_kpi2, col_kpi3 = st.columns(3)
     with col_kpi1:
-        render_kpi("Low Risk Districts", f"{counts.get('🟢 Low Risk Area', 0)}", "Favorable safety conditions", "#10B981")
+        render_kpi("Low Risk Districts", f"{counts.get(' Low Risk Area', 0)}", "Favorable safety conditions", "#10B981")
     with col_kpi2:
-        render_kpi("Moderate Risk Districts", f"{counts.get('🟡 Moderate Risk Area', 0)}", "Requires routine vigilance", "#F59E0B")
+        render_kpi("Moderate Risk Districts", f"{counts.get(' Moderate Risk Area', 0)}", "Requires routine vigilance", "#F59E0B")
     with col_kpi3:
-        render_kpi("High Risk Hotspots", f"{counts.get('🔴 High Risk Hotspot', 0)}", "Requires immediate policing focus", "#EF4444")
+        render_kpi("High Risk Hotspots", f"{counts.get(' High Risk Hotspot', 0)}", "Requires immediate policing focus", "#EF4444")
         
     st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
     
     # 1. Interactive Mapbox Hotspot Scatter
-    st.markdown("### 🗺️ Geospatial Distribution of K-Means Clusters")
+    st.markdown("### Geospatial Distribution of K-Means Clusters")
     st.markdown("Each marker represents a city, colored by its unsupervised K-Means risk category. Zoom and hover for details.")
     
     # Mapbox configuration with loading spinner
@@ -72,9 +72,9 @@ def show_hotspot_page():
             lon="Longitude",
             color="Cluster_Label",
             color_discrete_map={
-                "🟢 Low Risk Area": "#10B981", 
-                "🟡 Moderate Risk Area": "#F59E0B", 
-                "🔴 High Risk Hotspot": "#EF4444"
+                " Low Risk Area": "#10B981", 
+                " Moderate Risk Area": "#F59E0B", 
+                " High Risk Hotspot": "#EF4444"
             },
             hover_name="District",
             hover_data={
@@ -110,7 +110,7 @@ def show_hotspot_page():
     df_latest["Population_Lakhs"] = df_latest["Population"] / 100000.0
     
     with col_chart:
-        st.markdown("### 🧬 3D Dimensional Crime Profile Space")
+        st.markdown("### 3D Dimensional Crime Profile Space")
         st.markdown("A 3D projection mapping Crime Rate, Chargesheeting Rate, and Population. Observe the spatial separation of the risk clusters.")
         
         fig_3d = px.scatter_3d(
@@ -120,9 +120,9 @@ def show_hotspot_page():
             z="Population_Lakhs",
             color="Cluster_Label",
             color_discrete_map={
-                "🟢 Low Risk Area": "#10B981", 
-                "🟡 Moderate Risk Area": "#F59E0B", 
-                "🔴 High Risk Hotspot": "#EF4444"
+                " Low Risk Area": "#10B981", 
+                " Moderate Risk Area": "#F59E0B", 
+                " High Risk Hotspot": "#EF4444"
             },
             hover_name="District",
             labels={
@@ -140,7 +140,7 @@ def show_hotspot_page():
         st.plotly_chart(fig_3d, use_container_width=True, config={"displayModeBar": False})
         
     with col_stats:
-        st.markdown("### 📊 Cluster Statistical Centroids")
+        st.markdown("### Cluster Statistical Centroids")
         st.markdown("Average stats, crime rates (per lakh), and safety scores for each K-Means cluster. Centroids define the profiles of the clusters:")
         
         # Calculate cluster means
@@ -153,14 +153,14 @@ def show_hotspot_page():
         
         cluster_stats.columns = ["Cluster Size", "Average Crime Rate", "Average Chargesheeting (%)", "Average Safety Score"]
         
-        order = ["🟢 Low Risk Area", "🟡 Moderate Risk Area", "🔴 High Risk Hotspot"]
+        order = [" Low Risk Area", " Moderate Risk Area", " High Risk Hotspot"]
         cluster_stats = cluster_stats.reindex(order).dropna(how="all")
         
         st.dataframe(cluster_stats, use_container_width=True)
         
         st.markdown("""
-        *   **Hotspot Characteristic:** Cities grouped inside the **🔴 High Risk Hotspot** exhibit significantly higher crime rates and lower chargesheeting ratios, suggesting high incident prevalence coupled with lower processing speed.
-        *   **Unsupervised Insights:** Unlike the rule-based Safety Score, K-Means groups cities organically based on the statistical distance between their total crime volumes and police productivity.
+        * **Hotspot Characteristic:** Cities grouped inside the ** High Risk Hotspot** exhibit significantly higher crime rates and lower chargesheeting ratios, suggesting high incident prevalence coupled with lower processing speed.
+        * **Unsupervised Insights:** Unlike the rule-based Safety Score, K-Means groups cities organically based on the statistical distance between their total crime volumes and police productivity.
         """)
 
 if __name__ == "__main__":

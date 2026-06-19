@@ -91,12 +91,12 @@ def generate_crime_dataset():
         2017: 0.98,
         2018: 1.02,
         2019: 1.06,
-        2020: 0.82,  # COVID lockdown reduction in public crimes, drop in reporting
-        2021: 0.96,  # Recovery
-        2022: 1.04,  # Post-COVID reporting surge
-        2023: 1.01,  # Stabilizing
-        2024: 0.97,  # Slow decrease due to awareness campaigns
-        2025: 0.92   # More improvement
+        2020: 0.82, # COVID lockdown reduction in public crimes, drop in reporting
+        2021: 0.96, # Recovery
+        2022: 1.04, # Post-COVID reporting surge
+        2023: 1.01, # Stabilizing
+        2024: 0.97, # Slow decrease due to awareness campaigns
+        2025: 0.92 # More improvement
     }
     
     for year in range(2015, 2026):
